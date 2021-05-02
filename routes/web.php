@@ -23,12 +23,12 @@ Route::group([
     Route::get('/create-competition/{id}', 'CompetitionController@create')->name('competitions.create');
     Route::get('/competitions', 'CompetitionController@index')->name('competitions.index');
     Route::post('/competitions', 'CompetitionController@store')->name('competitions.store');
-    Route::delete('/competition/competitions/{competition}','CompetitionController@destroy')->name('competitions.destroy');
-    Route::get('/competition/competitions/{competition}','CompetitionController@show')->name('competitions.show');
-    Route::get('/competition/sample-data/create/{id}','CompetitionController@sampledata')->name('competitions.sampledata.create');
-    Route::post('/competition/sample-data','CompetitionController@sampledataStore')->name('competitions.sampledata.store');
-    Route::get('/competition/sample-data/{id}','CompetitionController@sampledataShow')->name('competitions.sampledata.show');
-    Route::post('single/competition/data','CompetitionController@competitionData')->name('competitions.sampledata.store');
+    Route::delete('/competition/competitions/{competition}','CompetitionController@destroy')->name('competitions.destroy');// delete competition 
+    Route::get('/competition/competitions/{competition}','CompetitionController@show')->name('competitions.show'); //show single competition 
+    Route::get('/competition/sample-data/create/{id}','CompetitionController@sampledata')->name('competitions.sampledata.create'); // submit sample compertition data form
+    Route::post('/competition/sample-data','CompetitionController@sampledataStore')->name('competitions.sampledata.store'); // store competititon data
+    Route::get('/competition/sample-data/{id}','CompetitionController@sampledataShow')->name('competitions.sampledata.show'); // vendor show the competiton data
+    Route::get('competition/singledata/show/{id}','CompetitionController@singleDataShow')->name('competitions.singledata.show'); // vendor show the competiton data
     Route::resource('users','UserController');
     Route::resource('skills','SkillController');
     Route::resource('projects','ProjectController');

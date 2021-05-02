@@ -99,15 +99,31 @@ class CompetitionController extends Controller
             $ImageName = str_random() . time() . '.' . $Image->getClientOriginalExtension();
             request()->file('data')->storeAs('images/data/',$ImageName);
         }
-        $model = CompetitionData::create([
-            'bid_id' => $request['bid_id'],
-            'data' => $ImageName,
-        ]);
-        return view('user.users.participart-data');
-    }
-    public function sampledataShow()
-    {
+        $comp = CompetitionData::where('bid_id',$request['bid_id'])->where('freelancer_id',auth()->user()->freelancer->id)->get();
+    
+        if($comp->count() >= 5)
+        {
+            $model = CompetitionData::orderBy('updated_at')->first();     
+            $model->data = $ImageName;
+            $model->save();
+        }
+        else
+        {
+            $model = CompetitionData::firstOrCreate([
+                'bid_id' => $request['bid_id'],
+                'data' => $ImageName,
+                'freelancer_id' => auth()->user()->freelancer->id
+            ]);    
+        }
         
+        $competitions = CompetitionData::where('bid_id',$request['bid_id'])->orderBy('created_at','DESC')->get();
+      
+        return view('user.users.participant-data',compact('competitions'));
+    }
+    public function singleDataShow($id)
+    {
+        $bid_data = CompetitionData::where('bid_id',$id)->firstOrFail();
+        return view('user.competitions.singledata',compact('bid_data'));
     }
 
 }
