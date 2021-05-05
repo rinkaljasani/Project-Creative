@@ -16,7 +16,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::where('isAssinged','<>','1')->get();
         return view('user.projects.index',compact('projects'));
     }
 

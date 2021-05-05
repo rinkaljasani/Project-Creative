@@ -19,7 +19,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->image }}</td>
+                    <td><img src="{{ asset('storage/images/users/'.$user->image ) }}" class="rounded-circle text-md-right" width="30" height="30"></td>
                     <td>
                       <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                           <input type="hidden" name="_method" value="DELETE">

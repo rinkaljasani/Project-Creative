@@ -27,10 +27,20 @@ Route::group([
     Route::get('/competition/competitions/{competition}','CompetitionController@show')->name('competitions.show'); //show single competition 
     Route::get('/competition/sample-data/create/{id}','CompetitionController@sampledata')->name('competitions.sampledata.create'); // submit sample compertition data form
     Route::post('/competition/sample-data','CompetitionController@sampledataStore')->name('competitions.sampledata.store'); // store competititon data
-    Route::get('/competition/sample-data/{id}','CompetitionController@sampledataShow')->name('competitions.sampledata.show'); // vendor show the competiton data
-    Route::get('competition/singledata/show/{id}','CompetitionController@singleDataShow')->name('competitions.singledata.show'); // vendor show the competiton data
+    Route::get('/competition/sample-data/{id}','CompetitionController@sampledataShow')->name('competitions.sampledata.show'); // vendor show the competition data
+    Route::get('competition/data/get/{competition_id}','CompetitionController@getAllCompetitionFreelancer')->name('compatitions.get.freelancer');
+    Route::get('competition/get/freelancerdata/{competition_freelancer_id}','CompetitionController@getSingleFreelancerData')->name('competitions.get.freelancer.data');
+    
+    Route::get('competition/singledata/show/{id}','CompetitionController@singleDataShow')->name('competitions.singledata.show'); 
+    // vendor show the competition data for perticuler bid
+    Route::post('competition/singledata/approved','CompetitionController@dataApproved')->name('commpetiton.data.approved'); // freelancer compatition data appoved by vender
+    Route::post('project/assigned','CompetitionController@projectAssigned')->name('competition.project.assigned');
     Route::resource('users','UserController');
+
     Route::resource('skills','SkillController');
+    Route::get('skills/freelancers/{id}','SkillController@skillFreelancer')->name('skills.freelancers');
+    Route::get('skills/projects/{id}','SkillController@skillProject')->name('skills.projects');
+
     Route::resource('projects','ProjectController');
     Route::resource('participants','ParticipantController');
     Route::resource('freelancers','FreelancerController');

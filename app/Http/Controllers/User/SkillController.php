@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
+use App\FreelancerSkill;
 use App\Http\Controllers\Controller;
+use App\Language;
+use App\ProjectSkill;
 use App\Skill;
 use Illuminate\Http\Request;
 
@@ -83,5 +86,19 @@ class SkillController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function skillFreelancer($id)
+    {
+        $languages = Language::all(['id','name']);
+        $skills = Skill::all(['id','skill']);
+        $freelancer_skills = FreelancerSkill::where('skill_id',$id)->get();
+        return view('user.skills.freelancer',compact('freelancer_skills','languages','skills'));
+
+    }
+    public function skillProject($id)
+    {
+        
+        $project_skills = ProjectSkill::where('skill_id',$id)->get();
+        return view('user.skills.project',compact('project_skills'));        
     }
 }

@@ -57,6 +57,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('user.projects.index') }}">All Project</a>
                             <a class="dropdown-item" href="{{ route('user.projects.create') }}">Make New Project</a>
                         </div>
                     </li>

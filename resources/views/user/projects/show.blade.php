@@ -33,10 +33,10 @@
                     </div>
             	@endif  
 			  <div class="card-footer text-muted">
-			  	
+			  @if(Auth::id() == $project->user_id) 	
 			  	<a href="{{ route('user.projects.edit', Crypt::encryptString($project->id)) }}" class="btn btn-dark">Edit</a>
 			  	<a href="{{ route('user.competitions.create', Crypt::encryptString($project->id)) }}" class="btn btn-dark">Create Competition</a>
-			    
+			   @endif
 			  </div>
 			</div>
 		</div>

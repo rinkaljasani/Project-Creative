@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CompetitionRequest;
 use App\Project;
 use App\ProjectCompetition;
+use App\Skill;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Validator;
@@ -88,7 +89,8 @@ class CompetitionController extends Controller
     }
     public function sampledata($id)
     {
-        $participant = CompetitionFreelancer::where('competition_id',Crypt::decryptString($id))->where('freelancer_id',auth()->user()->freelancer->id)->firstOrFail();
+        // $participant = CompetitionFreelancer::where('competition_id',Crypt::decryptString($id))->where('freelancer_id',auth()->user()->freelancer->id)->firstOrFail();
+        $participant = CompetitionFreelancer::where('competition_id',Crypt::decryptString($id))->firstOrFail();
         return view('user.competitions.sampledata',compact('participant'));
     }
     public function sampledataStore(Request $request)
@@ -103,7 +105,7 @@ class CompetitionController extends Controller
     
         if($comp->count() >= 5)
         {
-            $model = CompetitionData::orderBy('updated_at')->first();     
+            $model = CompetitionData::where('freelancer_id',auth()->user()->freelancer->id)->orderBy('updated_at')->first();     
             $model->data = $ImageName;
             $model->save();
         }
@@ -117,14 +119,44 @@ class CompetitionController extends Controller
         }
         
         $competitions = CompetitionData::where('bid_id',$request['bid_id'])->orderBy('created_at','DESC')->get();
-      
+        return view('user.users.participant-data',compact('competitions'));
+
+    }
+    public function getAllCompetitionFreelancer($id)
+    {
+        $skills = Skill::get();
+        $competition_freelancers = CompetitionFreelancer::where('competition_id',$id)->get();
+        return view('user.competitions.freelancer',compact('competition_freelancers','skills'));
+    }
+
+    public function getSingleFreelancerData($id)
+    {
+         $competitions = CompetitionData::where('bid_id',$id)->orderBy('created_at','DESC')->get();
         return view('user.users.participant-data',compact('competitions'));
     }
+
     public function singleDataShow($id)
     {
-        $bid_data = CompetitionData::where('bid_id',$id)->firstOrFail();
+        $bid_data = CompetitionData::where('id',$id)->firstOrFail();
         return view('user.competitions.singledata',compact('bid_data'));
     }
 
+    public function dataApproved(Request $request)
+    {
+        $bid = CompetitionData::where('id',$request->bid_id)->first();
+        $bid->isApproved = '1';
+        $bid->save();
+        return redirect()->back();
+    }
+    public function projectAssigned(Request $request)
+    {
+        $bid = CompetitionFreelancer::where('id',$request->bid_id)->first();
+        $project = $bid->competition->project;
+        $project->isAssinged = '1';
+        $project->save();
+        $bid->isAssinged = '1';
+        $bid->save();
+        return redirect()->back();
+    }
 }
     

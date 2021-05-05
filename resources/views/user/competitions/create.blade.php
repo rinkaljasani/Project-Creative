@@ -3,7 +3,6 @@
 <div class="container">
 	<div class="row justify-content-center mt-5">
 		<div class="col-8 card">
-
 			<div class="form-group row card-header">
                 <div class=" col-md-4 text-md-right"><img src="{{ asset('storage/images/users/'.Auth::user()->image)}}" class="rounded-circle text-md-right" width="100" height="100"></div>
                     <label for="name" class="col-md-8 col-form-label text-md-left mt-3">

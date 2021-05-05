@@ -11,8 +11,12 @@ class CompetitionData extends Model
     	'data',
     	'freelancer_id'
     ];
-      public function freelancer()
+    public function freelancer()
     {
         return $this->belongsTo(Freelancer::class);
+    }
+    public function Bid()
+    {
+    	return $this->belongsTo(CompetitionFreelancer::class);
     }
 }

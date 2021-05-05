@@ -12,7 +12,7 @@ class CompetitionFreelancer extends Model
     	'isAssinged',
     ];
     public function freelancer(){
-    	return $this->hasOne(Freelancer::class,'id');
+    	return $this->belongsTo(Freelancer::class,'id');
     }
     public function competition(){
     	return $this->belongsTo(ProjectCompetition::class);
