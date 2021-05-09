@@ -4,10 +4,10 @@
 	<div class="row">
 
 		@foreach($competition_freelancers as $competition_freelancer)
-		@dd($competition_freelancer->freelancer)
+		<div class="col-4">
 			<div class="text-center">
 				<div class="card" style="width: 18rem;">
-				  <img src="{{ asset('storage/images/users/'.$competition_freelancer->id)}}" alt="John" width="100%" height="200"><br>
+				  <img src="{{ asset('storage/images/users/'.$competition_freelancer->freelancer->user->image)}}" alt="John" width="100%" height="200"><br>
 				  <a href="{{ route('user.freelancers.show',Crypt::encryptString($competition_freelancer->freelancer->id)) }} "><h3 class="text-dark">{{ $competition_freelancer->freelancer->user->name }}</h3></a></h1>
 				  <p class="title">Level : {{ $competition_freelancer->freelancer->level }}</p>
 				  Skill : 
@@ -21,6 +21,7 @@
 				  <p><a class="btn btn-dark text-decoration-none mt-4 text-light" href="{{ route('user.competitions.get.freelancer.data',$competition_freelancer->id) }}">Show Data</a></p>
 				</div>
 			</div>
+		</div>
 		@endforeach
 		
 	</div>

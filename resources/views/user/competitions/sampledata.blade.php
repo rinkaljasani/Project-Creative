@@ -9,7 +9,7 @@
 			  	<div class="form-group">
 			  		<label class="form-label">Competition Name : {{ $participant->competition->name }}</label>
 				</div>
-				<input type="hidden" name="bid_id" value="{{ $participant->id}}">
+				<input type="hidden" name="bid_id" value="{{ $participant->id }}">
 				{{-- 
 				<div class="form-group">
 			  		<label class="form-label">Select File type</label>

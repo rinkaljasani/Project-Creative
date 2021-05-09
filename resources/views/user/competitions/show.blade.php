@@ -63,7 +63,7 @@
 				  	</form>
 				  	@endif
 				@else
-					<a href="{{ route('user.competitions.get.freelancer.data',$competition->id) }}" class="btn btn-dark">Show Data</a>
+					<a href="{{ route('user.competitions.get.freelancer',$competition->id) }}" class="btn btn-dark">Show Data</a>
 				@endif
 			  </div>
 			</div>

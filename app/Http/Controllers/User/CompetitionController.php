@@ -89,8 +89,8 @@ class CompetitionController extends Controller
     }
     public function sampledata($id)
     {
-        // $participant = CompetitionFreelancer::where('competition_id',Crypt::decryptString($id))->where('freelancer_id',auth()->user()->freelancer->id)->firstOrFail();
-        $participant = CompetitionFreelancer::where('competition_id',Crypt::decryptString($id))->firstOrFail();
+        if(auth()->user()->freelancer->id != null )
+            $participant = CompetitionFreelancer::where('competition_id',Crypt::decryptString($id))->where('freelancer_id',auth()->user()->freelancer->id)->firstOrFail();
         return view('user.competitions.sampledata',compact('participant'));
     }
     public function sampledataStore(Request $request)
@@ -103,7 +103,7 @@ class CompetitionController extends Controller
         }
         $comp = CompetitionData::where('bid_id',$request['bid_id'])->where('freelancer_id',auth()->user()->freelancer->id)->get();
     
-        if($comp->count() >= 5)
+        if($comp->count() >= 1)
         {
             $model = CompetitionData::where('freelancer_id',auth()->user()->freelancer->id)->orderBy('updated_at')->first();     
             $model->data = $ImageName;
@@ -125,7 +125,7 @@ class CompetitionController extends Controller
     public function getAllCompetitionFreelancer($id)
     {
         $skills = Skill::get();
-        $competition_freelancers = CompetitionFreelancer::where('competition_id',$id)->get();
+        $competition_freelancers = CompetitionFreelancer::where('competition_id',$id)->orderBy('freelancer_id','DESC')->get();
         return view('user.competitions.freelancer',compact('competition_freelancers','skills'));
     }
 
@@ -154,7 +154,7 @@ class CompetitionController extends Controller
         $project = $bid->competition->project;
         $project->isAssinged = '1';
         $project->save();
-        $bid->isAssinged = '1';
+        $bid->isAssinged = $bid->freelancer_id;
         $bid->save();
         return redirect()->back();
     }

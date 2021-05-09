@@ -17,7 +17,7 @@
 		  </thead>
 		  <tbody>
 		    @foreach($competitions as $competition)
-			
+			@if($competition->project->isAssinged != 1)
 		      	<tr>
 		      		<td></td>
 		      	<td><a href="{{ route('user.projects.show',Crypt::encryptString($competition->project->id)) }}" class="text-dark text-decoration-none">{{ $competition->name }}</a></td>
@@ -32,7 +32,7 @@
 		      	<td>{{ $competition->created_at->diffForHumans() }}</td>
 		      	<td><a href="{{ route('user.competitions.show',Crypt::encryptString($competition->id ))}}" class="btn btn-dark">Show More Detail</a></td>
 		      </tr>
-		    
+		    @endif
 			@endforeach
 		  </tbody>
 		</table>

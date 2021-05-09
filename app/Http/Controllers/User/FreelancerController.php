@@ -8,6 +8,7 @@ use App\FreelancerSkill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFreelancer;
 use App\Language;
+use App\Project;
 use App\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -41,7 +42,7 @@ class FreelancerController extends Controller
                 'freelancer_id' => $freelancer->id,
                 'language_id' => Crypt::decryptString($language),
             ]);
-        }
+        }       
         foreach($request['skills'] as $skill) 
         {
             FreelancerSkill::create([
@@ -54,10 +55,11 @@ class FreelancerController extends Controller
 
     public function show($id)
     {
+        $projects = Project::where('isAssinged',Crypt::decryptString($id))->get();
         $freelancer = Freelancer::where('id',Crypt::decryptString($id))->with(['languages','user','skills'])->first(['id','user_id','level']);
         $languages = Language::all(['id','name']);
         $skills = Skill::all(['id','skill']);
-        return view('user.freelancers.show',compact('freelancer','languages','skills'));
+        return view('user.freelancers.show',compact('freelancer','languages','skills','projects'));
     }
     public function edit($id)
     {

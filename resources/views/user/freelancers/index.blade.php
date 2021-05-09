@@ -3,6 +3,7 @@
 <div class="container">
 	<div class="row">
 		@foreach($freelancers as $freelancer)
+		<div class="col-4">
 			<div class="text-center">
 				<div class="card" style="width: 18rem;">
 				  <img src="{{ asset('storage/images/users/'.$freelancer->user->image)}}" alt="John" width="100%" height="200"><br>
@@ -19,6 +20,7 @@
 				  <p><a class="btn btn-dark text-decoration-none mt-4 text-light" href="{{ route('user.freelancers.show',Crypt::encryptString($freelancer->id)) }}">Show Profile</a></p>
 				</div>
 			</div>
+		</div>
 		@endforeach
 		
 	</div>

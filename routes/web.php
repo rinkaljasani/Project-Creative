@@ -28,7 +28,7 @@ Route::group([
     Route::get('/competition/sample-data/create/{id}','CompetitionController@sampledata')->name('competitions.sampledata.create'); // submit sample compertition data form
     Route::post('/competition/sample-data','CompetitionController@sampledataStore')->name('competitions.sampledata.store'); // store competititon data
     Route::get('/competition/sample-data/{id}','CompetitionController@sampledataShow')->name('competitions.sampledata.show'); // vendor show the competition data
-    Route::get('competition/data/get/{competition_id}','CompetitionController@getAllCompetitionFreelancer')->name('compatitions.get.freelancer');
+    Route::get('competition/data/get/{competition_id}','CompetitionController@getAllCompetitionFreelancer')->name('competitions.get.freelancer');
     Route::get('competition/get/freelancerdata/{competition_freelancer_id}','CompetitionController@getSingleFreelancerData')->name('competitions.get.freelancer.data');
     
     Route::get('competition/singledata/show/{id}','CompetitionController@singleDataShow')->name('competitions.singledata.show'); 

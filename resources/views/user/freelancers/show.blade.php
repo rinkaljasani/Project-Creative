@@ -27,7 +27,25 @@
                     </div>
                     <hr>
                     <div class="form-group row">
-                       <h5 class="text-uppercase m-auto">Project</h5>
+                       <h5 class="text-uppercase m-auto">Project</h5><br>
+                       <table class="table col-md-8">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Project Name</th>
+                                  <th scope="col">Project Budget</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                               @foreach($projects as $project)
+                                    <tr>
+                                        <td>1</td>
+                                        <td><a href="{{ route('user.projects.show',Crypt::encryptString($project->id)) }}" class="text-dark text-decoration">{{ $project->name }}</a></td>
+                                        <td>{{ $project->budget }}</td>
+                                    </tr>
+                               @endforeach
+                               </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -32,7 +32,7 @@
             @foreach($project->competitions as $competition)
 			<div class="card my-2">
 			  <div class="card-header">
-			    {{ $competition->name}}
+			    <a href="{{ route('user.competitions.show',Crypt::encryptString($competition->id ))}}" class="text-dark">{{ $competition->name}}</a>
 			  </div>
 			  <div class="card-body">
 			    <p class="card-text">Registration Last Date : {{ $competition->registration_last_date}}</p>
