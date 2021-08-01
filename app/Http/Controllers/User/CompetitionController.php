@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\CompetitionData;
 use App\CompetitionFreelancer;
+use App\Freelancer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompetitionRequest;
 use App\Project;
@@ -15,6 +16,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Query\insert;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Image;
 
@@ -73,9 +75,14 @@ class CompetitionController extends Controller
     public function show($id)
     {
         $status = '';
-
         $competition = ProjectCompetition::where('id',Crypt::decryptString($id))->with(['project','participants'])->first();
-        $participant = CompetitionFreelancer::where('competition_id',$competition->id)->first(['id','isAssinged']);
+        $freelancer = Freelancer::where('user_id', auth()->id())->first();
+        if($freelancer == null){
+            $participant = CompetitionFreelancer::where('competition_id',$competition->id)->first(['id','isAssinged']);
+        }
+        else{
+            $participant = CompetitionFreelancer::where('competition_id',$competition->id)->where('freelancer_id',$freelancer->id)->first(['id','isAssinged']);
+        }
         if($participant)
             $status='bid';
         return view('user.competitions.show',compact('competition','status','id'));
